@@ -37,8 +37,8 @@ def getSantaList(seed):
 				if people[person_index]["santee"] == False and exclusive == False:
 					person["santa"] = people[person_index]["name"]
 					people[person_index]["santee"] = True
-		for person in people:
-			print(person)
+		# for person in people:
+		# 	print(person)
 		return people
 
 

@@ -23,16 +23,14 @@ import random
 
 def getSantaList(seed=None):
 	"""Randomly choose secret santas based on 'people.json'
-	
-	Parameters
-  ----------
-  seed : int
-    Seed for psudo random generator. Use this to have reproducable lists.
 
-  Returns
-  -------
-  json
-    an object containing people with their specified santa person included.
+	Args:
+		seed(int): Optional seed for psudo random generator. Use this to have reproducable lists.
+
+	Returns: 
+		json: An object containing people with their specified santa person included.
+		string: The email address being used to send emails.
+
 	"""
 
 	if(seed is not None):
@@ -40,6 +38,7 @@ def getSantaList(seed=None):
 	with open('people.json') as f:
 		data = json.load(f)
 		people = data["people"]
+		sender = data["sender"]
 		for person in people:
 
 			while person["santa"] == None:
@@ -53,72 +52,70 @@ def getSantaList(seed=None):
 					people[person_index]["santee"] = True
 		# for person in people:
 		# 	print(person)
-		return people
+		return people, sender
 
 
-def sendEmail(people):
+def getEmailContents(name, santa, addresses):
+	return f"""\
+		<html>
+			<body>
+				<h2>Wells Super Secret Santa</h2>
+				<p>Hi {name},<br><br>
+					Hope your holiday season is full of joy! 
+					It's time to get ready for the Wells secret santa 2020! Yay! 
+					Santa's been working hard, and putting together a secret santa program in python. 
+					The results are in, and you're secret santa is <b>{santa}</b>!<br>
+					As we discussed during the thanksgiving call, If you have any ideas for things 
+					you might like from your santa, please send it to all secret santa participants 
+					to be sure your santa will get it.<br>
+					You can copy and paste the following set of addresses.<br>
+					{",".join(addresses)}
+				</p>
+				<p>
+					Curious about this project? Check out <a href="https://github.com/DavidWellsTheDeveloper/secret-santa">the source code</a>.<br> 
+					Did you find something wrong with this email? Let Dave know so he can debug the script!
+				</p>
+			</body>
+		</html>
+		"""
+
+
+def sendEmail(people, sender):
 	"""For every person specified, send an email to them containing the name of their santa with instructions.
-	
-	Parameters
-  ----------
-  people : json
-    an object containing people with their specified santa person included. (return value of getSantaList())
 
-  Returns
-  -------
-  None
+	Args:
+		people(json): An object containing people with their specified santa person included. (return value of getSantaList())
+		sender(string): The email address being used to send emails.
+
 	"""
 	port = 465  # For SSL
 	smtp_server = "smtp.gmail.com"
 	password = input("Type your password and press enter: ")
-	sender_email = people["sender"]
 
 	message = MIMEMultipart("alternative")
 	message["Subject"] = "Wells Secret Santa!"
-	message["From"] = sender_email
+	message["From"] = sender
 
 	context = ssl.create_default_context()
 	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-		server.login(sender_email, password)
+		server.login(sender, password)
 		addresses = []
 		for person in people:
 			addresses.append(person["email"])
 		for person in people:
 			santa = person["santa"]
 			name = person["name"]
-			html = f"""\
-			<html>
-				<body>
-					<h2>Wells Super Secret Santa</h2>
-					<p>Hi {name},<br><br>
-						Hope your holiday season is full of joy! 
-						It's time to get ready for the Wells secret santa 2020! Yay! 
-						Santa's been working hard, and putting together a secret santa program in python. 
-						The results are in, and you're secret santa is <b>{santa}</b>!<br>
-						As we discussed during the thanksgiving call, If you have any ideas for things 
-						you might like from your santa, please send it to all secret santa participants 
-						to be sure your santa will get it.<br>
-						You can copy and paste the following set of addresses.<br>
-						{",".join(addresses)}
-					</p>
-					<p>
-						Curious about this project? Check out <a href="https://github.com/DavidWellsTheDeveloper/secret-santa">the source code</a>.<br> 
-						Did you find something wrong with this email? Let Dave know so he can debug the script!
-					</p>
-				</body>
-			</html>
-			"""
+			html = getEmailContents(name, santa, addresses)
 			message.attach(MIMEText(html, "html"))
 			receiver_email = person["email"]
 			message["To"] = person["email"]
 			server.sendmail(
-				sender_email, 
+				sender, 
 				receiver_email, 
 				message.as_string()
 			)
 
 
 if __name__ == "__main__":
-	# Seed for random generator is 2020
-	people = getSantaList(2020)
-	sendEmail(people)
+	people, sender = getSantaList(2020)
+	sendEmail(people, sender)

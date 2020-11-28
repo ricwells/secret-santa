@@ -21,8 +21,22 @@ import json
 import random
 
 
-def getSantaList(seed):
-	random.seed(a=seed)
+def getSantaList(seed=None):
+	"""Randomly choose secret santas based on 'people.json'
+	
+	Parameters
+  ----------
+  seed : int
+    Seed for psudo random generator. Use this to have reproducable lists.
+
+  Returns
+  -------
+  json
+    an object containing people with their specified santa person included.
+	"""
+
+	if(seed is not None):
+		random.seed(a=seed)
 	with open('people.json') as f:
 		data = json.load(f)
 		people = data["people"]
@@ -43,11 +57,21 @@ def getSantaList(seed):
 
 
 def sendEmail(people):
+	"""For every person specified, send an email to them containing the name of their santa with instructions.
+	
+	Parameters
+  ----------
+  people : json
+    an object containing people with their specified santa person included. (return value of getSantaList())
 
+  Returns
+  -------
+  None
+	"""
 	port = 465  # For SSL
 	smtp_server = "smtp.gmail.com"
 	password = input("Type your password and press enter: ")
-	sender_email = "wellssupersecretsanta@gmail.com"
+	sender_email = people["sender"]
 
 	message = MIMEMultipart("alternative")
 	message["Subject"] = "Wells Secret Santa!"
@@ -59,7 +83,6 @@ def sendEmail(people):
 		addresses = []
 		for person in people:
 			addresses.append(person["email"])
-		addressString = ",".join(addresses)
 		for person in people:
 			santa = person["santa"]
 			name = person["name"]
@@ -71,16 +94,12 @@ def sendEmail(people):
 						Hope your holiday season is full of joy! 
 						It's time to get ready for the Wells secret santa 2020! Yay! 
 						Santa's been working hard, and putting together a secret santa program in python. 
-						The results are in, and you're secret santa is <b>{santa}</b>!
-					</p>
-					<p>
+						The results are in, and you're secret santa is <b>{santa}</b>!<br>
 						As we discussed during the thanksgiving call, If you have any ideas for things 
 						you might like from your santa, please send it to all secret santa participants 
-						to be sure your santa will get it
-					</p>
-					<p>
+						to be sure your santa will get it.<br>
 						You can copy and paste the following set of addresses.<br>
-						{addressString}
+						{",".join(addresses)}
 					</p>
 					<p>
 						Curious about this project? Check out <a href="https://github.com/DavidWellsTheDeveloper/secret-santa">the source code</a>.<br> 
@@ -90,7 +109,6 @@ def sendEmail(people):
 			</html>
 			"""
 			message.attach(MIMEText(html, "html"))
-			# receiver_email = person["email"]
 			receiver_email = person["email"]
 			message["To"] = person["email"]
 			server.sendmail(

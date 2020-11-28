@@ -1,0 +1,53 @@
+{
+  "people": [
+    {
+      "name": "Person6",
+      "exclude": ["Person6", "Person7", "Person8", "Person9"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    },
+    {
+      "name": "Person7",
+      "exclude": ["Person6", "Person7", "Person8", "Person9"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    },
+    {
+      "name": "Person8",
+      "exclude": ["Person6", "Person7", "Person8", "Person9"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    },
+    {
+      "name": "Person9",
+      "exclude": ["Person6", "Person7", "Person8", "Person9"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    },
+    {
+      "name": "Person10",
+      "exclude": ["Person10", "Person11"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    },
+    {
+      "name": "Person11",
+      "exclude": ["Person10", "Person11"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    },
+    {
+      "name": "Person12",
+      "exclude": ["Person12"],
+      "santa": null,
+      "santee": false,
+      "email": "someEmail@example.com"
+    }
+  ]
+}

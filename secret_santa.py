@@ -61,19 +61,23 @@ def getEmailContents(name, santa, addresses):
 			<body>
 				<h2>Wells Super Secret Santa</h2>
 				<p>Hi {name},<br><br>
+					Sorry for the confusion on the first attempt at Secret Santa. Thanks for being patient. Let's try one more time.<br><br>
 					Hope your holiday season is full of joy! 
 					It's time to get ready for the Wells secret santa 2020! Yay! 
 					Santa's been working hard, and putting together a secret santa program in python. 
-					The results are in, and you're secret santa is <b>{santa}</b>!<br>
+					The results are in, and you will be santa for: <b>{santa}</b>!<br>
 					As we discussed during the thanksgiving call, If you have any ideas for things 
-					you might like from your santa, please send it to all secret santa participants 
+					you might like to receive, please send it to all secret santa participants 
 					to be sure your santa will get it.<br>
 					You can copy and paste the following set of addresses.<br>
-					{",".join(addresses)}
+					{",".join(addresses)}<br><br>
+					Do not reply to this email please. I'll check it periodically, but I'd rather recieve 
+					questions or comments at my regular email address: dave1.t.wells@gmail.com.
 				</p>
 				<p>
 					Curious about this project? Check out <a href="https://github.com/DavidWellsTheDeveloper/secret-santa">the source code</a>.<br> 
-					Did you find something wrong with this email? Let Dave know so he can debug the script!
+					Did you find something wrong with this email? Let Dave know so he can debug the script!<br>
+					If you loose track of this email, It can be regenerated. Contact Dave if you need to.
 				</p>
 			</body>
 		</html>
@@ -92,10 +96,6 @@ def sendEmail(people, sender):
 	smtp_server = "smtp.gmail.com"
 	password = input("Type your password and press enter: ")
 
-	message = MIMEMultipart("alternative")
-	message["Subject"] = "Wells Secret Santa!"
-	message["From"] = sender
-
 	context = ssl.create_default_context()
 	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
 		server.login(sender, password)
@@ -103,19 +103,29 @@ def sendEmail(people, sender):
 		for person in people:
 			addresses.append(person["email"])
 		for person in people:
+			message = MIMEMultipart("alternative")
+			message["Subject"] = "Secret Santa Round 2"
+			message["From"] = sender
 			santa = person["santa"]
 			name = person["name"]
 			html = getEmailContents(name, santa, addresses)
 			message.attach(MIMEText(html, "html"))
 			receiver_email = person["email"]
 			message["To"] = person["email"]
-			server.sendmail(
-				sender, 
-				receiver_email, 
-				message.as_string()
-			)
+			# server.sendmail(
+			# 	sender, 
+			# 	receiver_email, 
+			# 	message.as_string()
+			# )
+			# message["To"] = sender
+			# server.sendmail(
+			# 	sender, 
+			# 	sender, 
+			# 	message.as_string()
+			# )
+			print(f"Dear {name} {person['email']}: {santa}")
 
 
 if __name__ == "__main__":
-	people, sender = getSantaList(2020)
+	people, sender = getSantaList(2021)
 	sendEmail(people, sender)

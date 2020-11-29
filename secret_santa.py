@@ -112,11 +112,12 @@ def sendEmail(people, sender):
 			message.attach(MIMEText(html, "html"))
 			receiver_email = person["email"]
 			message["To"] = person["email"]
-			# server.sendmail(
-			# 	sender, 
-			# 	receiver_email, 
-			# 	message.as_string()
-			# )
+			server.sendmail(
+				sender, 
+				receiver_email, 
+				message.as_string()
+			)
+			# Use this if you'd like to test the secret santa and receive all emails which would otherwise go to the intended recipient.
 			# message["To"] = sender
 			# server.sendmail(
 			# 	sender, 

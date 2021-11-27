@@ -61,19 +61,24 @@ def getEmailContents(name, santa, addresses):
 			<body>
 				<h2>Wells Super Secret Santa</h2>
 				<p>Hi {name},<br><br>
-					Sorry for the confusion on the first attempt at Secret Santa. Thanks for being patient. Let's try one more time.<br><br>
 					Hope your holiday season is full of joy! 
-					It's time to get ready for the Wells secret santa 2020! Yay! 
-					Santa's been working hard, and putting together a secret santa program in python. 
-					The results are in, and you will be santa for: <b>{santa}</b>!<br>
-					As we discussed during the thanksgiving call, If you have any ideas for things 
-					you might like to receive, please send it to all secret santa participants 
-					to be sure your santa will get it.<br>
-					You can copy and paste the following set of addresses.<br>
+					It's time to get ready for the Wells family & friends secret santa 2021! Yay! <br><br>
+					The results are in, and this year you will be santa for: <b>{santa}</b>!<br>
+					If you would like to share some ideas for gifts with 
+					with your santa, DO NOT REPLY TO THIS EMAIL. We don't want to accidentally 
+					share our secret santa info by replying.<br>
+					Instead, use a seperate thread, and send it to all secret santa participants to be sure your santa will 
+					get the message. You can copy and paste the following set of addresses: <br>
 					{",".join(addresses)}<br><br>
-					Do not reply to this email please. I'll check it periodically, but I'd rather recieve 
-					questions or comments at my regular email address: dave1.t.wells@gmail.com.
 				</p>
+				<p>
+					It's always helpful for gift giving to have some ideas, so please at least 
+					share something (even if it's just saying that you would like to be suprised).
+				</p>
+				<p><small>
+					If you have any questions or comments about how names were picked, or how the program works, email: dave1.t.wells@gmail.com.<br>
+					If you have any comments that concerns everyone participating, please just use the email list above.
+				</small></p>
 				<p>
 					Curious about this project? Check out <a href="https://github.com/DavidWellsTheDeveloper/secret-santa">the source code</a>.<br> 
 					Did you find something wrong with this email? Let Dave know so he can debug the script!<br>
@@ -82,7 +87,6 @@ def getEmailContents(name, santa, addresses):
 			</body>
 		</html>
 		"""
-
 
 def sendEmail(people, sender):
 	"""For every person specified, send an email to them containing the name of their santa with instructions.
@@ -104,7 +108,7 @@ def sendEmail(people, sender):
 			addresses.append(person["email"])
 		for person in people:
 			message = MIMEMultipart("alternative")
-			message["Subject"] = "Secret Santa Round 2"
+			message["Subject"] = "Secret Santa 2021"
 			message["From"] = sender
 			santa = person["santa"]
 			name = person["name"]
@@ -117,6 +121,7 @@ def sendEmail(people, sender):
 				receiver_email, 
 				message.as_string()
 			)
+
 			# Use this if you'd like to test the secret santa and receive all emails which would otherwise go to the intended recipient.
 			# message["To"] = sender
 			# server.sendmail(
@@ -124,9 +129,8 @@ def sendEmail(people, sender):
 			# 	sender, 
 			# 	message.as_string()
 			# )
-			print(f"Dear {name} {person['email']}: {santa}")
 
 
 if __name__ == "__main__":
-	people, sender = getSantaList(2021)
+	people, sender = getSantaList(221)
 	sendEmail(people, sender)

@@ -50,8 +50,8 @@ def getSantaList(seed=None):
 				if people[person_index]["santee"] == False and exclusive == False:
 					person["santa"] = people[person_index]["name"]
 					people[person_index]["santee"] = True
-		for person in people:
-			print(person)
+		# for person in people:
+		# 	print(person)
 		return people, sender
 
 
@@ -60,6 +60,10 @@ def getEmailContents(name, santa, addresses):
 		<html>
 			<body>
 				<h2>Wells Super Secret Santa</h2>
+				<p><b>We found a small, but important bug. Turns out due to a typo I made putting names in, 
+					someone ended up being their own secret santa. So we're gonna try this again. It would 
+					probably be best if you deleted your old secret santa email just in case.
+				</b></p>
 				<p>Hi {name},<br><br>
 					Hope your holiday season is full of joy! 
 					It's time to get ready for the Wells family & friends secret santa 2021! Yay! <br><br>
@@ -108,7 +112,7 @@ def sendEmail(people, sender):
 			addresses.append(person["email"])
 		for person in people:
 			message = MIMEMultipart("alternative")
-			message["Subject"] = "Secret Santa 2021"
+			message["Subject"] = "New Secret Santa Picks 2021"
 			message["From"] = sender
 			santa = person["santa"]
 			name = person["name"]
@@ -116,11 +120,11 @@ def sendEmail(people, sender):
 			message.attach(MIMEText(html, "html"))
 			receiver_email = person["email"]
 			message["To"] = person["email"]
-			# server.sendmail(
-			# 	sender, 
-			# 	receiver_email, 
-			# 	message.as_string()
-			# )
+			server.sendmail(
+				sender, 
+				receiver_email, 
+				message.as_string()
+			)
 
 			# Use this if you'd like to test the secret santa and receive all emails which would otherwise go to the intended recipient.
 			# message["To"] = sender
@@ -132,5 +136,5 @@ def sendEmail(people, sender):
 
 
 if __name__ == "__main__":
-	people, sender = getSantaList(222)
+	people, sender = getSantaList(223)
 	sendEmail(people, sender)

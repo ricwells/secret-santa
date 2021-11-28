@@ -45,13 +45,13 @@ def getSantaList(seed=None):
 				person_index = random.randint(0, (len(people)-1))
 				exclusive = False
 				for ex in person["exclude"]:
-					if ex == people[person_index]["name"]:
+					if ex == people[person_index]["name"] or people[person_index]["name"] == person["name"]:
 						exclusive = True
 				if people[person_index]["santee"] == False and exclusive == False:
 					person["santa"] = people[person_index]["name"]
 					people[person_index]["santee"] = True
-		# for person in people:
-		# 	print(person)
+		for person in people:
+			print(person)
 		return people, sender
 
 
@@ -116,11 +116,11 @@ def sendEmail(people, sender):
 			message.attach(MIMEText(html, "html"))
 			receiver_email = person["email"]
 			message["To"] = person["email"]
-			server.sendmail(
-				sender, 
-				receiver_email, 
-				message.as_string()
-			)
+			# server.sendmail(
+			# 	sender, 
+			# 	receiver_email, 
+			# 	message.as_string()
+			# )
 
 			# Use this if you'd like to test the secret santa and receive all emails which would otherwise go to the intended recipient.
 			# message["To"] = sender
@@ -132,5 +132,5 @@ def sendEmail(people, sender):
 
 
 if __name__ == "__main__":
-	people, sender = getSantaList(221)
+	people, sender = getSantaList(222)
 	sendEmail(people, sender)

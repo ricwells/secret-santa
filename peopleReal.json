@@ -1,0 +1,101 @@
+{
+  "sender": "email address set up to send from...",
+  "people": [
+    {
+      "firstName": "Rick",
+      "lastName": "Wells",
+      "exclude": ["Rick", "Mair", "Dave", "Darcy"],
+      "santa": null,
+      "santee": false,
+      "email": "ricwells4002@gmail.com"
+    },
+    {
+      "firstName": "Mair",
+      "lastName": "Wells",
+      "exclude": ["Rick", "Mair", "Dave", "Darcy"],
+      "santa": null,
+      "santee": false,
+      "email": "mairwells1@gmail.com"
+    },
+    {
+      "firstName": "Dave",
+      "lastName": "Wells",
+      "exclude": ["Rick", "Mair", "Dave", "Darcy"],
+      "santa": null,
+      "santee": false,
+      "email": "dave1.t.wells@gmail.com"
+    },
+    {
+      "firstName": "Darcy",
+      "lastName": "Wells",
+      "exclude": ["Rick", "Mair", "Dave", "Darcy"],
+      "santa": null,
+      "santee": false,
+      "email": "d.robin.wells@gmail.com"
+    },
+    {
+      "firstName": "Quill",
+      "lastName": "Maurer",
+      "exclude": ["Quill", "Steph"],
+      "santa": null,
+      "santee": false,
+      "email": "kbradley11@msn.com"
+    },
+    {
+      "firstName": "Steph",
+      "lastName": "Wells",
+      "exclude": ["Quill", "Steph"],
+      "santa": null,
+      "santee": false,
+      "email": "stephanie.wells4068@gmail.com"
+    },
+    {
+      "firstName": "Steve",
+      "lastName": "Wells",
+      "exclude": ["Steve", "Kathy", "Justin", "Chelsi", "Karen"],
+      "santa": null,
+      "santee": false,
+      "email": "smwells@comcast.net"
+    },
+    {
+      "firstName": "Kathy",
+      "lastName": "Wells",
+      "exclude": ["Steve", "Kathy", "Justin", "Chelsi", "Karen"],
+      "santa": null,
+      "santee": false,
+      "email": "kkkwells@comcast.net"
+    },
+    {
+      "firstName": "Justin",
+      "lastName": "Wells",
+      "exclude": ["Steve", "Kathy", "Justin", "Chelsi", "Karen"],
+      "santa": null,
+      "santee": false,
+      "email": "japewells@gmail.com"
+    },
+    {
+      "firstName": "Chelsi",
+      "lastName": "Wells",
+      "exclude": ["Steve", "Kathy", "Justin", "Chelsi", "Karen"],
+      "santa": null,
+      "santee": false,
+      "email": "cjwells74@gmail.com"
+    },
+    {
+      "firstName": "Karen",
+      "lastName": "Wells",
+      "exclude": ["Steve", "Kathy", "Justin", "Chelsi", "Karen"],
+      "santa": null,
+      "santee": false,
+      "email": "karen.christine1230@gmail.com"
+    },
+    {
+      "firstName": "Kate",
+      "lastName": "Hall",
+      "exclude": ["Kate"],
+      "santa": null,
+      "santee": false,
+      "email": "greenfreak201@gmail.com"
+    }
+  ]
+}

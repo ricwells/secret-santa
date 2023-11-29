@@ -45,10 +45,10 @@ def getSantaList(seed=None):
 				person_index = random.randint(0, (len(people)-1))
 				exclusive = False
 				for ex in person["exclude"]:
-					if ex == people[person_index]["name"] or people[person_index]["name"] == person["name"]:
+					if ex == people[person_index]["firstName"] or people[person_index]["firstName"] == person["firstName"]:
 						exclusive = True
 				if people[person_index]["santee"] == False and exclusive == False:
-					person["santa"] = people[person_index]["name"]
+					person["santa"] = people[person_index]["firstName"]
 					people[person_index]["santee"] = True
 		# for person in people:
 		# 	print(person)
@@ -60,13 +60,9 @@ def getEmailContents(name, santa, addresses):
 		<html>
 			<body>
 				<h2>Wells Super Secret Santa</h2>
-				<p><b>We found a small, but important bug. Turns out due to a typo I made putting names in, 
-					someone ended up being their own secret santa. So we're gonna try this again. It would 
-					probably be best if you deleted your old secret santa email just in case.
-				</b></p>
 				<p>Hi {name},<br><br>
 					Hope your holiday season is full of joy! 
-					It's time to get ready for the Wells family & friends secret santa 2021! Yay! <br><br>
+					It's time to get ready for the Wells family & friends secret santa 2023! Yay! <br><br>
 					The results are in, and this year you will be santa for: <b>{santa}</b>!<br>
 					If you would like to share some ideas for gifts with 
 					with your santa, DO NOT REPLY TO THIS EMAIL. We don't want to accidentally 
@@ -106,6 +102,7 @@ def sendEmail(people, sender):
 
 	context = ssl.create_default_context()
 	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+		# if True:
 		server.login(sender, password)
 		addresses = []
 		for person in people:
@@ -115,8 +112,9 @@ def sendEmail(people, sender):
 			message["Subject"] = "New Secret Santa Picks 2021"
 			message["From"] = sender
 			santa = person["santa"]
-			name = person["name"]
+			name = person["firstName"]
 			html = getEmailContents(name, santa, addresses)
+			print(html)
 			message.attach(MIMEText(html, "html"))
 			receiver_email = person["email"]
 			message["To"] = person["email"]

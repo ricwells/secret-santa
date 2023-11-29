@@ -1,0 +1,22 @@
+{
+  "sender": "email address set up to send from...",
+  "people": [
+    {
+      "firstName": "Rick",
+      "lastName": "Wells",
+      "exclude": ["Rick"],
+      "santa": null,
+      "santee": false,
+      "email": "ricwells4002@gmail.com"
+    },
+    {
+      "firstName": "Dave",
+      "lastName": "Wells",
+      "exclude": ["Dave"],
+      "santa": null,
+      "santee": false,
+      "email": "dave1.t.wells@gmail.com"
+    }
+    
+  ]
+}
